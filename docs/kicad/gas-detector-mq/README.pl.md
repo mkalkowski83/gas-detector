@@ -26,6 +26,6 @@ Rezystory i kondensatory: `Device:R`, `Device:C`, `Device:C_Polarized`.
 | R1, R3 | szeregowo z AO i DO | 10 kΩ |
 | R2, R4 | z węzła do masy | 20 kΩ |
 | C1 | ceramika przy VCC | 100 nF |
-| C2 | elektrolit, plus do +5V | 47 µF / 16 V |
+| C2 | elektrolit, plus do +5V | 10 µF / 50 V |
 
 AO / A0 (`AO_3V3`) → **D34** (GPIO34, ADC1). DO / D0 (`DO_3V3`) → **D35** (GPIO35, też ADC1, tylko wejście). Krzyżyk = pin niepodłączony. GPIO32 zostaje wolny.

@@ -17,7 +17,7 @@ Schemat: [`docs/kicad/gas-detector-mq/gas-detector-mq.kicad_sch`](docs/kicad/gas
 | węzeł za R1 (`AO_3V3`) | R2 **20 kΩ** do masy oraz U1 **D34** (GPIO34) | ADC1, około 3,33 V |
 | U2 **DO** | R3 **10 kΩ** | próg cyfrowy z LM393, do 5 V |
 | węzeł za R3 (`DO_3V3`) | R4 **20 kΩ** do masy oraz U1 **D35** (GPIO35) | wejście cyfrowe, około 3,33 V |
-| C1, C2 | między `+5V` a masą, przy module | 100 nF i 47 µF |
+| C1, C2 | między `+5V` a masą, przy module | 100 nF i 10 µF |
 
 Na symbolu ESP32 krzyżyk oznacza pin, którego **nie lutujemy**. **D34** (GPIO34, ADC1_CH6) i **D35** (GPIO35, ADC1_CH7) są tylko wejściami. Oba są w ADC1, więc Wi-Fi ich nie blokuje. ADC2 przy włączonym radiu nie nadaje się do pomiaru.
 
@@ -35,7 +35,7 @@ AO i DO modułu MH wychodzą do 5 V (AO z toru analogowego, DO z LM393 podciągn
 
 Grzałka MQ bierze około **150 mA z 5 V**. Pin **5V/VIN** jest po stronie USB, przed stabilizatorem 3,3 V (na części płytek przez diodę Schottky’ego). Stabilizator 3,3 V tej grzałki nie uciągnie. Port USB musi jeszcze znieść skoki prądu ESP32 przy Wi-Fi, często ponad 400 mA razem z grzałką. Słaby port albo cienki kabel kończy się restartami.
 
-C1 **100 nF** i C2 **47 µF / 16 V** siedzą przy VCC modułu. Plus C2 do `+5V`. Wartość 47 µF jest przyjęta: w zadaniu był „bulk”, bez konkretnej pojemności.
+C1 **100 nF** (ceramika) i C2 **10 µF / 50 V** siedzą przy VCC modułu. Plus C2 do `+5V`. 10 µF starcza jako lokalny magazyn obok 100 nF: grzałka bierze prąd stale z USB, a nie z kondensatora. Nie wstawiać tu 1000 µF / 6,3 V — napięcie jest tuż nad 5 V, a duża pojemność na linii USB daje udar prądu przy wpięciu kabla.
 
 ## Wygrzewanie
 
@@ -50,7 +50,7 @@ Element MQ po podaniu zasilania musi się rozgrzać, zanim AO ma sens. Zwykle ki
 | R1, R3 | rezystor | 10 kΩ |
 | R2, R4 | rezystor | 20 kΩ |
 | C1 | ceramika | 100 nF |
-| C2 | elektrolit | 47 µF / 16 V, plus do +5 V |
+| C2 | elektrolit | 10 µF / 50 V, plus do +5 V |
 
 Buzzer i LED nie wchodzą w ten schemat.
 
@@ -60,7 +60,7 @@ Buzzer i LED nie wchodzą w ten schemat.
 - DO idzie do 5 V, bo LM393 na tych modułach jest podciągnięty do VCC.
 - Płytka to **30-pinowy DOIT DevKit V1**, nie 38-pinowy ESP32-DevKitC. Na DevKitC pin 5 V bywa w innym miejscu.
 - AO (A0) → D34 (GPIO34), DO (D0) → D35 (GPIO35). Oba piny są tylko wejściami, co do odczytu DO wystarcza.
-- Bulk to 47 µF / 16 V.
+- Bulk to 10 µF / 50 V (zamiast przyjętych wcześniej 47 µF). 1000 µF / 6,3 V nie używać na tej szynie.
 - Prąd grzałki około 150 mA, według opisu, nie z noty konkretnego MQ-x.
 
 ## Zostaje na lutowanie

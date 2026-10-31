@@ -1389,7 +1389,7 @@
 			(embedded_fonts no)
 		)
 	)
-	(text "Prototyp na płytce uniwersalnej — bez PCB.\nUSB zasila ESP32. Moduł MQ z pinu 5V/VIN (grzałka ~150 mA, potrzebuje 5 V, nie 3V3).\nAO 5 V → R1 10k → węzeł → GPIO34/D34 (ADC1_CH6); węzeł → R2 20k → GND.\nDO 5 V → R3 10k → węzeł → GPIO35/D35; węzeł → R4 20k → GND. Na pinie jest 3,33 V.\nC1 100 nF i C2 47 µF przy VCC modułu. Krzyżyki: tych pinów nie lutować.\nZłącze MQ: VCC, GND, DO, AO — sprawdź nadruk. DevKit 30 pin, USB na dole;\nlewy rząd od 3V3, prawy od VIN. Przed lutowaniem porównaj z nadrukiem płytki."
+	(text "Prototyp na płytce uniwersalnej — bez PCB.\nUSB zasila ESP32. Moduł MQ z pinu 5V/VIN (grzałka ~150 mA, potrzebuje 5 V, nie 3V3).\nAO 5 V → R1 10k → węzeł → GPIO34/D34 (ADC1_CH6); węzeł → R2 20k → GND.\nDO 5 V → R3 10k → węzeł → GPIO35/D35; węzeł → R4 20k → GND. Na pinie jest 3,33 V.\nC1 100 nF i C2 10 µF/50 V przy VCC modułu. Krzyżyki: tych pinów nie lutować.\nZłącze MQ: VCC, GND, DO, AO — sprawdź nadruk. DevKit 30 pin, USB na dole;\nlewy rząd od 3V3, prawy od VIN. Przed lutowaniem porównaj z nadrukiem płytki."
 		(exclude_from_sim no)
 		(at 301.752 236.474 0)
 		(effects
@@ -2168,7 +2168,7 @@
 				)
 			)
 		)
-		(property "Value" "47uF"
+		(property "Value" "10uF"
 			(at 111.76 161.29 0)
 			(show_name no)
 			(do_not_autoplace no)
