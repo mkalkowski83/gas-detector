@@ -14,12 +14,12 @@ Schemat: [`docs/kicad/gas-detector-mq/gas-detector-mq.kicad_sch`](docs/kicad/gas
 | U2 **VCC** | U1 **5V/VIN**, plus C1 i C2 | sieć `+5V` |
 | U2 **GND** | masa DevKit i dzielników | wspólna masa |
 | U2 **AO** | R1 **10 kΩ** | sygnał analogowy, do 5 V |
-| węzeł za R1 (`AO_3V3`) | R2 **20 kΩ** do masy oraz U1 **GPIO34** | ADC1, około 3,33 V |
+| węzeł za R1 (`AO_3V3`) | R2 **20 kΩ** do masy oraz U1 **D34** (GPIO34) | ADC1, około 3,33 V |
 | U2 **DO** | R3 **10 kΩ** | próg cyfrowy z LM393, do 5 V |
-| węzeł za R3 (`DO_3V3`) | R4 **20 kΩ** do masy oraz U1 **GPIO32** | wejście cyfrowe, około 3,33 V |
+| węzeł za R3 (`DO_3V3`) | R4 **20 kΩ** do masy oraz U1 **D35** (GPIO35) | wejście cyfrowe, około 3,33 V |
 | C1, C2 | między `+5V` a masą, przy module | 100 nF i 47 µF |
 
-Na symbolu ESP32 krzyżyk oznacza pin, którego **nie lutujemy**. GPIO34 to ADC1_CH6 (tylko wejście). GPIO32 to zwykłe wejście; ten pin jest też w ADC1, więc Wi-Fi go nie blokuje. ADC2 przy włączonym radiu nie nadaje się do pomiaru.
+Na symbolu ESP32 krzyżyk oznacza pin, którego **nie lutujemy**. **D34** (GPIO34, ADC1_CH6) i **D35** (GPIO35, ADC1_CH7) są tylko wejściami. Oba są w ADC1, więc Wi-Fi ich nie blokuje. ADC2 przy włączonym radiu nie nadaje się do pomiaru.
 
 Kolejność pinów na symbolu MQ, od góry: **VCC, GND, DO, AO**. Na ESP32 (USB na dole): lewy rząd od góry `3V3, EN, GPIO36/VP, GPIO39/VN, GPIO34, GPIO35, GPIO32, …`, prawy rząd od góry `5V/VIN, GND, GPIO23, …`. Przed lutowaniem porównaj to z nadrukiem na swojej płytce.
 
@@ -29,7 +29,7 @@ AO i DO modułu MH wychodzą do 5 V (AO z toru analogowego, DO z LM393 podciągn
 
 `5 V × 20 / (10 + 20) = 3,33 V`
 
-20 kΩ do masy ściąga pin do zera, gdy przewód odpadnie. GPIO34 nie ma wewnętrznego podciągania. Najbliższa wartość z szeregu E12 to 22 kΩ (około 3,44 V, nadal poniżej 3,6 V); na schemacie są 20 kΩ. Przy odczycie AO ustaw tłumienie ADC 11 dB — 3,33 V jest przy górze skali.
+20 kΩ do masy ściąga pin do zera, gdy przewód odpadnie. D34 i D35 nie mają wewnętrznego podciągania. Najbliższa wartość z szeregu E12 to 22 kΩ (około 3,44 V, nadal poniżej 3,6 V); na schemacie są 20 kΩ. Przy odczycie AO ustaw tłumienie ADC 11 dB — 3,33 V jest przy górze skali.
 
 ## Grzałka i USB
 
@@ -59,7 +59,7 @@ Buzzer i LED nie wchodzą w ten schemat.
 - Moduł to typowa płytka MH: cztery piny **VCC, GND, DO, AO**. Część klonów ma inną kolejność — liczy się nadruk.
 - DO idzie do 5 V, bo LM393 na tych modułach jest podciągnięty do VCC.
 - Płytka to **30-pinowy DOIT DevKit V1**, nie 38-pinowy ESP32-DevKitC. Na DevKitC pin 5 V bywa w innym miejscu.
-- AO → GPIO34, DO → GPIO32.
+- AO (A0) → D34 (GPIO34), DO (D0) → D35 (GPIO35). Oba piny są tylko wejściami, co do odczytu DO wystarcza.
 - Bulk to 47 µF / 16 V.
 - Prąd grzałki około 150 mA, według opisu, nie z noty konkretnego MQ-x.
 

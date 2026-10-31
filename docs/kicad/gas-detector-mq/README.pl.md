@@ -28,4 +28,4 @@ Rezystory i kondensatory: `Device:R`, `Device:C`, `Device:C_Polarized`.
 | C1 | ceramika przy VCC | 100 nF |
 | C2 | elektrolit, plus do +5V | 47 µF / 16 V |
 
-AO (`AO_3V3`) → **GPIO34** (ADC1). DO (`DO_3V3`) → **GPIO32**. Krzyżyk = pin niepodłączony.
+AO / A0 (`AO_3V3`) → **D34** (GPIO34, ADC1). DO / D0 (`DO_3V3`) → **D35** (GPIO35, też ADC1, tylko wejście). Krzyżyk = pin niepodłączony. GPIO32 zostaje wolny.
