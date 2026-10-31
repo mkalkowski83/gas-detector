@@ -1421,7 +1421,7 @@
 	(junction
 		(at 106.68 154.94)
 		(diameter 0)
-		(color 0 0 0 0)
+		(color 255 0 0 1)
 		(uuid "782fb0ef-f83a-4648-85e9-215f620b6455")
 	)
 	(junction
