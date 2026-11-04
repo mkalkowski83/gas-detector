@@ -33,6 +33,6 @@ Rezystory i kondensatory: `Device:R`, `Device:C`, `Device:C_Polarized`. LED, dio
 | D2 | LED czerwona, wyciek | GPIO33, katoda do masy |
 | Q1 | BC547 | GPIO25 przez R7 |
 | BZ1 | TMB12A05, plus do +5V | kolektor Q1 |
-| D3 | 1N4148, pasek do +5V | równolegle do BZ1 |
+| D3 | 1N4002, pasek do +5V | równolegle do BZ1 |
 
 AO / A0 (`AO_3V3`) → **D34** (GPIO34, ADC1). DO / D0 (`DO_3V3`) → **D35** (GPIO35, też ADC1, tylko wejście). Alarm przy 0,35 V na GPIO34: zielona GPIO32, czerwona GPIO33, brzęczyk GPIO25. Krzyżyk = pin niepodłączony.

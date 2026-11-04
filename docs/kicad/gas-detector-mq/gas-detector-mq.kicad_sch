@@ -4230,7 +4230,7 @@
 				)
 			)
 		)
-		(property "Value" "1N4148"
+		(property "Value" "1N4002"
 			(at 294.64 154.94 0)
 			(show_name no)
 			(do_not_autoplace no)

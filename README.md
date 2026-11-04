@@ -25,7 +25,7 @@ Schemat: [`docs/kicad/gas-detector-mq/gas-detector-mq.kicad_sch`](docs/kicad/gas
 | U1 **GPIO25** | R7 **1 kΩ**, baza Q1 | sterowanie brzęczyka |
 | emiter Q1 | masa | BC547, noga E |
 | kolektor Q1 | minus BZ1 i anoda D3 | węzeł brzęczyka |
-| plus BZ1 i katoda D3 | `+5V` | TMB12A05, pasek 1N4148 przy +5 V |
+| plus BZ1 i katoda D3 | `+5V` | TMB12A05, pasek 1N4002 przy +5 V |
 
 Na symbolu ESP32 krzyżyk oznacza pin, którego **nie lutujemy**. **D34** (GPIO34, ADC1_CH6) i **D35** (GPIO35, ADC1_CH7) są tylko wejściami. Oba są w ADC1, więc Wi-Fi ich nie blokuje. ADC2 przy włączonym radiu nie nadaje się do pomiaru.
 
@@ -65,7 +65,7 @@ Element MQ po podaniu zasilania musi się rozgrzać, zanim AO ma sens. Zwykle ki
 | D2 | LED czerwona | anoda od GPIO33, katoda do masy |
 | Q1 | BC547 NPN | baza przez R7, emiter do masy, kolektor do BZ1 |
 | BZ1 | TMB12A05 | brzęczyk aktywny 5 V, plus do +5 V |
-| D3 | 1N4148 | równolegle do BZ1, pasek do +5 V |
+| D3 | 1N4002 | równolegle do BZ1, pasek do +5 V |
 
 ## Alarm
 
@@ -78,7 +78,7 @@ Próg to **0,35 V** na GPIO34. Czyste powietrze po dobie grzania stoi przy okoł
 
 D1 i D2 biorą prąd z pinów 3,3 V, około 6 mA przez 220 Ω. Katoda (krótka noga) do masy.
 
-TMB12A05 to brzęczyk aktywny na **5 V**, do **30 mA**. Pin ESP tego nie uciągnie, więc Q1 (BC547) włącza go od strony masy. Plus BZ1 do `+5V`, minus do kolektora. D3 (1N4148) równolegle do brzęczyka, pasek od strony `+5V`. GPIO25 wysoki włącza dźwięk. Przy BC547, płaską stroną do siebie i nogami w dół, kolejność to **C B E**.
+TMB12A05 to brzęczyk aktywny na **5 V**, do **30 mA**. Pin ESP tego nie uciągnie, więc Q1 (BC547) włącza go od strony masy. Plus BZ1 do `+5V`, minus do kolektora. D3 (1N4002) równolegle do brzęczyka, pasek od strony `+5V`. GPIO25 wysoki włącza dźwięk. Przy BC547, płaską stroną do siebie i nogami w dół, kolejność to **C B E**.
 
 ## Założenia
 
