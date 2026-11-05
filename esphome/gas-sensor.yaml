@@ -13,11 +13,11 @@ logger:
 # Enable Home Assistant API
 api:
   encryption:
-    key: !secret gas_sensor_api_key
+    key: !secret gas_sensor__api_key
 
 ota:
   - platform: esphome
-    password: !secret gas_sensor_ota_password
+    encryption:
 
 wifi:
   ssid: !secret wifi_ssid
@@ -26,7 +26,7 @@ wifi:
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
     ssid: "Gas-Sensor Hotspot"
-    password: !secret gas_sensor_ap_password
+    password: !secret gdos_sensor__ap_password
 
 captive_portal:
 
