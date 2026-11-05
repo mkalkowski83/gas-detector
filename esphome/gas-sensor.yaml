@@ -1,0 +1,106 @@
+esphome:
+  name: gas-sensor
+  friendly_name: Gas sensor
+
+esp32:
+  board: esp32dev
+  framework:
+    type: esp-idf
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: !secret gas_sensor_api_key
+
+ota:
+  - platform: esphome
+    password: !secret gas_sensor_ota_password
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Gas-Sensor Hotspot"
+    password: !secret gas_sensor_ap_password
+
+captive_portal:
+
+# D1 zielona = brak wycieku (GPIO23/D23), D2 czerwona = wyciek (GPIO22/D22),
+# BZ1 TMB12A05 przez BC547 z GPIO25. Próg 0,35 V na GPIO34.
+switch:
+  - platform: gpio
+    pin: GPIO23
+    id: led_green
+    name: "Kitchen Gas OK LED"
+    restore_mode: ALWAYS_OFF
+    internal: true
+  - platform: gpio
+    pin: GPIO22
+    id: led_red
+    name: "Kitchen Gas Alarm LED"
+    restore_mode: ALWAYS_OFF
+    internal: true
+  - platform: gpio
+    pin: GPIO25
+    id: gas_buzzer
+    name: "Kitchen Gas Buzzer"
+    restore_mode: ALWAYS_OFF
+    internal: true
+
+binary_sensor:
+  - platform: template
+    name: "Kitchen Gas Leak"
+    device_class: gas
+    lambda: |-
+      if (isnan(id(gas_raw).state)) return false;
+      return id(gas_raw).state >= 0.35;
+    update_interval: 10s
+
+# Analog sensor (A0 connected to GPIO34)
+sensor: 
+  - platform: adc 
+    pin: GPIO34 
+    name: "Kitchen Gas Leak Sensor v1.1" 
+    update_interval: 10s
+    id: gas_raw
+    attenuation: 12db
+    unit_of_measurement: "V"
+    accuracy_decimals: 2
+    on_value:
+      then:
+        - if:
+            condition:
+              lambda: 'return isnan(x);'
+            then:
+              - switch.turn_off: led_green
+              - switch.turn_off: led_red
+              - switch.turn_off: gas_buzzer
+            else:
+              - if:
+                  condition:
+                    lambda: 'return x >= 0.35;'
+                  then:
+                    - switch.turn_off: led_green
+                    - switch.turn_on: led_red
+                    - switch.turn_on: gas_buzzer
+                  else:
+                    - switch.turn_on: led_green
+                    - switch.turn_off: led_red
+                    - switch.turn_off: gas_buzzer
+
+  - platform: template
+    name: "Kitchen Gas Concentration"
+    unit_of_measurement: "PPM"
+    icon: "mdi:gas-cylinder"
+    lambda: |-
+      float voltage = id(gas_raw).state;
+      // Próg alarmu po dobie wygrzewania (baza ~0,16 V) i próbie zapalniczką.
+      if (isnan(voltage) || voltage < 0.35) return 0;
+      // Uproszczone mapowanie, nie krzywa MQ: 1 V = 100 ppm.
+      return voltage * 100;
+    update_interval: 10s

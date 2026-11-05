@@ -6,6 +6,8 @@ Płytki drukowanej nie ma. Footprinty są puste. Lutowanie na płytce uniwersaln
 
 Schemat: [`docs/kicad/gas-detector-mq/gas-detector-mq.kicad_sch`](docs/kicad/gas-detector-mq/gas-detector-mq.kicad_sch)
 
+Konfiguracja ESPHome: [`esphome/gas-sensor.yaml`](esphome/gas-sensor.yaml). AO na GPIO34, zielona na GPIO23, czerwona na GPIO22, brzęczyk na GPIO25, próg 0,35 V. Hasła idą do `esphome/secrets.yaml` według [`esphome/secrets.yaml.example`](esphome/secrets.yaml.example). Pliku z hasłami nie commitujemy.
+
 ## Połączenia
 
 | Skąd | Dokąd | Co to jest |
