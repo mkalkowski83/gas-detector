@@ -55,11 +55,8 @@ switch:
 binary_sensor:
   - platform: template
     name: "Kitchen Gas Leak"
+    id: gas_leak
     device_class: gas
-    lambda: |-
-      if (isnan(id(gas_raw).state)) return false;
-      return id(gas_raw).state >= 0.35;
-    update_interval: 10s
 
 # Analog sensor (A0 connected to GPIO34)
 sensor: 
@@ -73,6 +70,8 @@ sensor:
     accuracy_decimals: 2
     on_value:
       then:
+        - lambda: |-
+            id(gas_leak).publish_state(!isnan(x) && x >= 0.35f);
         - if:
             condition:
               lambda: 'return isnan(x);'
