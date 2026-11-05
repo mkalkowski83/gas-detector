@@ -1,2 +1,3 @@
 *.lck
 *.kicad_sch.lck
+.history/
