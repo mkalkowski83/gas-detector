@@ -11,7 +11,7 @@
 		(comment 1 "USB→U1; 5V/VIN→MQ VCC; AO 10k/20k→GPIO34/D34; DO 10k/20k→GPIO35/D35")
 		(comment 2 "Płytka uniwersalna, bez PCB. Grzałka MQ ~150 mA z 5 V.")
 		(comment 3 "Założenie: DOIT DevKit V1 30 pin, USB na dole; złącze MQ VCC GND DO AO.")
-		(comment 4 "Alarm: D1 zielona GPIO32, D2 czerwona GPIO33, BZ1 TMB12A05 przez Q1 z GPIO25. Próg 0,35 V.")
+		(comment 4 "Alarm: D1 zielona GPIO23, D2 czerwona GPIO22, BZ1 TMB12A05 przez Q1 z GPIO25. Próg 0,35 V.")
 	)
 	(lib_symbols
 		(symbol "Device:C"
@@ -1984,7 +1984,7 @@
 			(embedded_fonts no)
 		)
 	)
-	(text "Prototyp na płytce uniwersalnej — bez PCB.\nUSB zasila ESP32. Moduł MQ z pinu 5V/VIN (grzałka ~150 mA, potrzebuje 5 V, nie 3V3).\nAO 5 V → R1 10k → węzeł → GPIO34/D34 (ADC1_CH6); węzeł → R2 20k → GND.\nDO 5 V → R3 10k → węzeł → GPIO35/D35; węzeł → R4 20k → GND. Na pinie jest 3,33 V.\nC1 100 nF i C2 10 µF/50 V przy VCC modułu. Krzyżyki: tych pinów nie lutować.\nAlarm: D1 zielona na GPIO32 = brak wycieku, D2 czerwona na GPIO33 = wyciek, BZ1 TMB12A05 z +5V przez Q1 i GPIO25. Próg 0,35 V na GPIO34.\nZłącze MQ: VCC, GND, DO, AO — sprawdź nadruk. DevKit 30 pin, USB na dole;\nlewy rząd od 3V3, prawy od VIN. Przed lutowaniem porównaj z nadrukiem płytki."
+	(text "Prototyp na płytce uniwersalnej — bez PCB.\nUSB zasila ESP32. Moduł MQ z pinu 5V/VIN (grzałka ~150 mA, potrzebuje 5 V, nie 3V3).\nAO 5 V → R1 10k → węzeł → GPIO34/D34 (ADC1_CH6); węzeł → R2 20k → GND.\nDO 5 V → R3 10k → węzeł → GPIO35/D35; węzeł → R4 20k → GND. Na pinie jest 3,33 V.\nC1 100 nF i C2 10 µF/50 V przy VCC modułu. Krzyżyki: tych pinów nie lutować.\nAlarm: D1 zielona na GPIO23 = brak wycieku, D2 czerwona na GPIO22 = wyciek, BZ1 TMB12A05 z +5V przez Q1 i GPIO25. Próg 0,35 V na GPIO34.\nZłącze MQ: VCC, GND, DO, AO — sprawdź nadruk. DevKit 30 pin, USB na dole;\nlewy rząd od 3V3, prawy od VIN. Przed lutowaniem porównaj z nadrukiem płytki."
 		(exclude_from_sim no)
 		(at 301.752 236.474 0)
 		(effects
@@ -2078,16 +2078,8 @@
 		(uuid "466fa728-6846-46e5-bda8-84f6cc5f938d")
 	)
 	(no_connect
-		(at 226.06 149.86)
-		(uuid "498f4e8e-d9f1-4cd4-90da-5d893cae0ed1")
-	)
-	(no_connect
 		(at 226.06 177.8)
 		(uuid "4a334575-c496-40f2-b9b1-51f7d6e69df7")
-	)
-	(no_connect
-		(at 226.06 152.4)
-		(uuid "5c18dea7-7ec8-485e-b79d-5a1fe847f228")
 	)
 	(no_connect
 		(at 185.42 167.64)
@@ -3445,46 +3437,6 @@
 	)
 	(wire
 		(pts
-			(xy 185.42 160.02) (xy 182.88 160.02)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9350417e-f39b-4e0e-b9d9-94ffd63dbddf")
-	)
-	(label "LED_ZIELONA"
-		(at 182.88 160.02 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "40d9b166-045d-4327-875c-2bf050d9e48c")
-	)
-	(wire
-		(pts
-			(xy 185.42 162.56) (xy 182.88 162.56)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5de3931b-6fd0-48cc-a24f-05a9a238939b")
-	)
-	(label "LED_CZERWONA"
-		(at 182.88 162.56 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "efcf8e5b-fb23-4a2c-ac76-2255c7c3c6b5")
-	)
-	(wire
-		(pts
 			(xy 185.42 165.1) (xy 182.88 165.1)
 		)
 		(stroke
@@ -4376,6 +4328,54 @@
 			(justify left top)
 		)
 		(uuid "0d9e24ad-5d2d-44e9-a8b1-dbbf53a0b138")
+	)
+	(wire
+		(pts
+			(xy 226.06 149.86) (xy 231.14 149.86)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "766e849d-54b0-4b9e-90c4-f4cb916191b2")
+	)
+	(label "LED_ZIELONA"
+		(at 231.14 149.86 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "ea566871-e8bc-4078-83f9-b68304aa05fd")
+	)
+	(wire
+		(pts
+			(xy 226.06 152.4) (xy 231.14 152.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9dbfc20f-051a-4c93-ba1c-e8257da34d30")
+	)
+	(label "LED_CZERWONA"
+		(at 231.14 152.4 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "6d6efb98-1a40-4947-b2cd-31dde0a22e2b")
+	)
+	(no_connect
+		(at 185.42 160.02)
+		(uuid "609d67d8-dc9e-4e57-8bc9-3fe827bb4a4f")
+	)
+	(no_connect
+		(at 185.42 162.56)
+		(uuid "b2ba0469-e249-400f-97e0-13201ae6b5f3")
 	)
 	(sheet_instances
 		(path "/"
