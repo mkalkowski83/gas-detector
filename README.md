@@ -1,5 +1,7 @@
 # Czujnik gazu
 
+[English version](README.en.md)
+
 Schemat ideowy prototypu na **płytce uniwersalnej**: moduł **MH-MQ** (element MQ + komparator LM393) i **ESP32 DevKit V1** (30 pinów). Zasilanie wchodzi kablem USB w ESP32. Moduł czujnika bierze **5 V z pinu 5V/VIN**, bo grzałka MQ nie może wisieć na 3,3 V.
 
 Płytki drukowanej nie ma. Footprinty są puste. Lutowanie na płytce uniwersalnej jest osobnym krokiem.
