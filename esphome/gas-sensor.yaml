@@ -30,8 +30,8 @@ wifi:
 
 captive_portal:
 
-# D1 zielona = brak wycieku (GPIO23/D23), D2 czerwona = wyciek (GPIO22/D22),
-# BZ1 TMB12A05 przez BC547 z GPIO25. Próg 0,35 V na GPIO34.
+# D1 green = no leak (GPIO23/D23), D2 red = leak (GPIO22/D22),
+# BZ1 TMB12A05 driven via BC547 from GPIO25. Threshold 0.35 V on GPIO34.
 switch:
   - platform: gpio
     pin: GPIO23
@@ -98,8 +98,8 @@ sensor:
     icon: "mdi:gas-cylinder"
     lambda: |-
       float voltage = id(gas_raw).state;
-      // Próg alarmu po dobie wygrzewania (baza ~0,16 V) i próbie zapalniczką.
+      // Alarm threshold set after a 24 h burn-in (baseline ~0.16 V) and a lighter gas test.
       if (isnan(voltage) || voltage < 0.35) return 0;
-      // Uproszczone mapowanie, nie krzywa MQ: 1 V = 100 ppm.
+      // Simplified mapping, not the MQ curve: 1 V = 100 ppm.
       return voltage * 100;
     update_interval: 10s
