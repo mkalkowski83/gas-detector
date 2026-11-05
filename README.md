@@ -18,6 +18,14 @@ Schemat: [`docs/kicad/gas-detector-mq/gas-detector-mq.kicad_sch`](docs/kicad/gas
 | U2 **DO** | R3 **10 kΩ** | próg cyfrowy z LM393, do 5 V |
 | węzeł za R3 (`DO_3V3`) | R4 **20 kΩ** do masy oraz U1 **D35** (GPIO35) | wejście cyfrowe, około 3,33 V |
 | C1, C2 | między `+5V` a masą, przy module | 100 nF i 10 µF |
+| U1 **GPIO23** (D23) | R5 **220 Ω**, potem anoda D1 | zielona, brak wycieku |
+| katoda D1 | masa | krótka noga diody |
+| U1 **GPIO22** (D22) | R6 **220 Ω**, potem anoda D2 | czerwona, wyciek |
+| katoda D2 | masa | krótka noga diody |
+| U1 **GPIO25** | R7 **1 kΩ**, baza Q1 | sterowanie brzęczyka |
+| emiter Q1 | masa | BC547, noga E |
+| kolektor Q1 | minus BZ1 i anoda D3 | węzeł brzęczyka |
+| plus BZ1 i katoda D3 | `+5V` | TMB12A05, pasek 1N4002 przy +5 V |
 
 Na symbolu ESP32 krzyżyk oznacza pin, którego **nie lutujemy**. **D34** (GPIO34, ADC1_CH6) i **D35** (GPIO35, ADC1_CH7) są tylko wejściami. Oba są w ADC1, więc Wi-Fi ich nie blokuje. ADC2 przy włączonym radiu nie nadaje się do pomiaru.
 
@@ -51,8 +59,26 @@ Element MQ po podaniu zasilania musi się rozgrzać, zanim AO ma sens. Zwykle ki
 | R2, R4 | rezystor | 20 kΩ |
 | C1 | ceramika | 100 nF |
 | C2 | elektrolit | 10 µF / 50 V, plus do +5 V |
+| R5, R6 | rezystor | 220 Ω |
+| R7 | rezystor | 1 kΩ |
+| D1 | LED zielona | anoda od GPIO23 przez R5, katoda do masy |
+| D2 | LED czerwona | anoda od GPIO22 przez R6, katoda do masy |
+| Q1 | BC547 NPN | baza przez R7, emiter do masy, kolektor do BZ1 |
+| BZ1 | TMB12A05 | brzęczyk aktywny 5 V, plus do +5 V |
+| D3 | 1N4002 | równolegle do BZ1, pasek do +5 V |
 
-Buzzer i LED nie wchodzą w ten schemat.
+## Alarm
+
+Próg to **0,35 V** na GPIO34. Czyste powietrze po dobie grzania stoi przy około 0,16 V. Gaz z zapalniczki podnosił odczyt do 0,41 V i wyżej.
+
+| Stan | D1 zielona, GPIO23 | D2 czerwona, GPIO22 | BZ1, GPIO25 |
+|------|--------------------|---------------------|-------------|
+| poniżej 0,35 V | świeci | zgaszona | cicho |
+| 0,35 V i więcej | zgaszona | świeci | piszczy |
+
+D1 i D2 biorą prąd z pinów 3,3 V, około 6 mA przez 220 Ω. Katoda (krótka noga) do masy.
+
+TMB12A05 to brzęczyk aktywny na **5 V**, do **30 mA**. Pin ESP tego nie uciągnie, więc Q1 (BC547) włącza go od strony masy. Plus BZ1 do `+5V`, minus do kolektora. D3 (1N4002) równolegle do brzęczyka, pasek od strony `+5V`. GPIO25 wysoki włącza dźwięk. Przy BC547, płaską stroną do siebie i nogami w dół, kolejność to **C B E**.
 
 ## Założenia
 
@@ -62,7 +88,8 @@ Buzzer i LED nie wchodzą w ten schemat.
 - AO (A0) → D34 (GPIO34), DO (D0) → D35 (GPIO35). Oba piny są tylko wejściami, co do odczytu DO wystarcza.
 - Bulk to 10 µF / 50 V (zamiast przyjętych wcześniej 47 µF). 1000 µF / 6,3 V nie używać na tej szynie.
 - Prąd grzałki około 150 mA, według opisu, nie z noty konkretnego MQ-x.
+- Alarm przy **0,35 V** na GPIO34. D1 na GPIO23 (D23), D2 na GPIO22 (D22), BZ1 przez Q1 z GPIO25. GPIO32 i GPIO33 zostają wolne. TMB12A05 jest brzęczykiem aktywnym: stałe 5 V włącza dźwięk, bez PWM.
 
 ## Zostaje na lutowanie
 
-Ułożyć moduły na płytce uniwersalnej, sprawdzić nadruk VIN/5V i kolejność VCC-GND-DO-AO, zlutować goldpiny, rezystory i kondensatory według tabeli. Dzielniki trzymać krótko przy pinach ESP32. Wspólna masa. Nie podłączać pinów z krzyżykiem, w szczególności GPIO12 (przy starcie musi zostać w stanie niskim) i GPIO0. Projektu PCB nie rysujemy.
+Ułożyć moduły na płytce uniwersalnej, sprawdzić nadruk VIN/5V i kolejność VCC-GND-DO-AO, zlutować goldpiny, rezystory, diody, tranzystor i brzęczyk według tabeli. Dzielniki trzymać krótko przy pinach ESP32. Wspólna masa. Plus TMB12A05 do `+5V`. Nie podłączać pinów z krzyżykiem, w szczególności GPIO12 (przy starcie musi zostać w stanie niskim) i GPIO0. Projektu PCB nie rysujemy.

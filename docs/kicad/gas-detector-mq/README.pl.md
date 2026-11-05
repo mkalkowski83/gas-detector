@@ -15,7 +15,7 @@ Biblioteka `symbols/gas-detector.kicad_sym`:
 | `ESP32_DEVKIT` | złącze 30 pin + USB; lewy rząd od 3V3, prawy od 5V/VIN |
 | `MH_MQ_SENSOR` | VCC, GND, DO, AO |
 
-Rezystory i kondensatory: `Device:R`, `Device:C`, `Device:C_Polarized`.
+Rezystory i kondensatory: `Device:R`, `Device:C`, `Device:C_Polarized`. LED, dioda, NPN i brzęczyk są w schemacie jako `gas-detector:LED`, `gas-detector:DIODE`, `gas-detector:NPN`, `gas-detector:BUZZER`.
 
 ## Elementy
 
@@ -27,5 +27,12 @@ Rezystory i kondensatory: `Device:R`, `Device:C`, `Device:C_Polarized`.
 | R2, R4 | z węzła do masy | 20 kΩ |
 | C1 | ceramika przy VCC | 100 nF |
 | C2 | elektrolit, plus do +5V | 10 µF / 50 V |
+| R5, R6 | szeregowo z LED | 220 Ω |
+| R7 | baza Q1 | 1 kΩ |
+| D1 | LED zielona, brak wycieku | GPIO23 (D23) przez R5, katoda do masy |
+| D2 | LED czerwona, wyciek | GPIO22 (D22) przez R6, katoda do masy |
+| Q1 | BC547 | GPIO25 przez R7 |
+| BZ1 | TMB12A05, plus do +5V | kolektor Q1 |
+| D3 | 1N4002, pasek do +5V | równolegle do BZ1 |
 
-AO / A0 (`AO_3V3`) → **D34** (GPIO34, ADC1). DO / D0 (`DO_3V3`) → **D35** (GPIO35, też ADC1, tylko wejście). Krzyżyk = pin niepodłączony. GPIO32 zostaje wolny.
+AO / A0 (`AO_3V3`) → **D34** (GPIO34, ADC1). DO / D0 (`DO_3V3`) → **D35** (GPIO35, też ADC1, tylko wejście). Alarm przy 0,35 V na GPIO34: zielona GPIO23, czerwona GPIO22, brzęczyk GPIO25. GPIO32 i GPIO33 wolne. Krzyżyk = pin niepodłączony.
