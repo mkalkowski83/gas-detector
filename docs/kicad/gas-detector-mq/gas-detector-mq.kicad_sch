@@ -2840,16 +2840,6 @@
 		)
 		(uuid "f74868b9-b30b-44d5-ace2-ce8dc460c54d")
 	)
-	(label "LED_ZIELONA"
-		(at 247.65 125.73 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "21f600f8-f064-41f6-ace8-57b58eb058bb")
-	)
 	(label "+5V"
 		(at 228.6 144.78 0)
 		(effects
@@ -2869,17 +2859,6 @@
 			(justify right bottom)
 		)
 		(uuid "5c8ecb6f-7d0c-4812-b0d7-391e88c1c12e")
-	)
-	(label "LED_CZERWONA"
-		(at 231.14 152.4 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(color 72 72 72 1)
-			)
-			(justify left bottom)
-		)
-		(uuid "6d6efb98-1a40-4947-b2cd-31dde0a22e2b")
 	)
 	(label "DO_3V3"
 		(at 153.67 184.15 0)
@@ -2911,16 +2890,6 @@
 		)
 		(uuid "8022e077-57da-4695-8829-5731f9db3aeb")
 	)
-	(label "LED_CZERWONA"
-		(at 247.65 138.43 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "a71de089-3f2f-433d-ba6b-eabda49b70e9")
-	)
 	(label "BUZZER"
 		(at 182.88 165.1 180)
 		(effects
@@ -2950,16 +2919,6 @@
 			(justify left bottom)
 		)
 		(uuid "d1f57e35-ca14-40bc-926e-4b4767207c26")
-	)
-	(label "LED_ZIELONA"
-		(at 231.14 149.86 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "ea566871-e8bc-4078-83f9-b68304aa05fd")
 	)
 	(symbol
 		(lib_id "Device:R")
